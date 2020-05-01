@@ -6,13 +6,21 @@ public class CriptografiaCesariana implements Criptografia {
     public String criptografar(String texto) {
         if (texto == null) throw new NullPointerException();
         if (texto.equals("")) throw new IllegalArgumentException();
-        return "d oljhlud udsrvd pduurp vdowrx vreuh r fdfkruur fdqvdgr";
+        return shift(texto.toLowerCase(), 3);
     }
 
     @Override
     public String descriptografar(String texto) {
         if (texto == null) throw new NullPointerException();
         if (texto.equals("")) throw new IllegalArgumentException();
-        return "a ligeira raposa marrom saltou sobre o cachorro cansado";
+        return shift(texto.toLowerCase(), -3);
+    }
+
+    private String shift(String text, int key) {
+        return text
+            .chars()
+            .map(c -> c >= 'a' && c <= 'z' ? c + key : c)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
     }
 }
