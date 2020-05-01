@@ -7,16 +7,23 @@ import java.util.List;
 import br.com.codenation.desafio.annotation.Desafio;
 import br.com.codenation.desafio.app.MeuTimeInterface;
 
+import br.com.codenation.domain.Player;
+import br.com.codenation.domain.Team;
+import br.com.codenation.domain.TeamRepository;
+
 public class DesafioMeuTimeApplication implements MeuTimeInterface {
+	private TeamRepository repository = new TeamRepository();
 
 	@Desafio("incluirTime")
-	public void incluirTime(Long id, String nome, LocalDate dataCriacao, String corUniformePrincipal, String corUniformeSecundario) {
-		throw new UnsupportedOperationException();
+	public void incluirTime(Long id, String nome, LocalDate dataCriacao, String corUniformePrincipal,
+			String corUniformeSecundario) {
+		this.repository.addTeam(new Team(id, nome, dataCriacao, corUniformePrincipal, corUniformeSecundario));
 	}
 
 	@Desafio("incluirJogador")
-	public void incluirJogador(Long id, Long idTime, String nome, LocalDate dataNascimento, Integer nivelHabilidade, BigDecimal salario) {
-		throw new UnsupportedOperationException();
+	public void incluirJogador(Long id, Long idTime, String nome, LocalDate dataNascimento, Integer nivelHabilidade,
+			BigDecimal salario) {
+		this.repository.addPlayer(new Player(id, idTime, nome, dataNascimento, nivelHabilidade, salario));
 	}
 
 	@Desafio("definirCapitao")
