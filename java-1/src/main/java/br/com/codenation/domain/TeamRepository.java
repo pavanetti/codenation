@@ -41,6 +41,14 @@ public class TeamRepository {
     return teams.get(id);
   }
 
+  public PlayersCollection retrieveAllPlayers() {
+    return new PlayersCollection(players.values().stream());
+  }
+
+  public TeamsCollection retrieveAllTeams() {
+    return new TeamsCollection(teams.values().stream());
+  }
+
   public PlayersCollection findPlayersByTeam(Long teamId) {
     return new PlayersCollection(playersByTeam.get(teamId).stream().map(id -> players.get(id)));
   }

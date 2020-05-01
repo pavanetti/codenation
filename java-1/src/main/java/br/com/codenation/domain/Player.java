@@ -35,4 +35,12 @@ public class Player {
   public Integer getAbility() {
     return this.ability;
   }
+
+  public LocalDate getBirthday() {
+    return this.birthday;
+  }
+
+  public BigDecimal getSalary() {
+    return this.salary;
+  }
 }

@@ -68,27 +68,33 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 	@Desafio("buscarJogadorMaisVelho")
 	public Long buscarJogadorMaisVelho(Long idTime) {
-		throw new UnsupportedOperationException();
+		PlayersCollection players = this.repository.findPlayersByTeam(idTime);
+		Optional<Player> theOldest = players.oldest();
+		return theOldest.map(player -> player.getId()).orElse(0L);
 	}
 
 	@Desafio("buscarTimes")
 	public List<Long> buscarTimes() {
-		throw new UnsupportedOperationException();
+		return this.repository.retrieveAllTeams().getIds();
 	}
 
 	@Desafio("buscarJogadorMaiorSalario")
 	public Long buscarJogadorMaiorSalario(Long idTime) {
-		throw new UnsupportedOperationException();
+		PlayersCollection players = this.repository.findPlayersByTeam(idTime);
+		Optional<Player> theMoreExpensive = players.moreExpensive();
+		return theMoreExpensive.map(player -> player.getId()).orElse(0L);
 	}
 
 	@Desafio("buscarSalarioDoJogador")
 	public BigDecimal buscarSalarioDoJogador(Long idJogador) {
-		throw new UnsupportedOperationException();
+		return this.repository.findPlayer(idJogador).getSalary();
 	}
 
 	@Desafio("buscarTopJogadores")
 	public List<Long> buscarTopJogadores(Integer top) {
-		throw new UnsupportedOperationException();
+		PlayersCollection players = this.repository.retrieveAllPlayers();
+		PlayersCollection tops = players.top(top);
+		return tops.getIds();
 	}
 
 	@Desafio("buscarCorCamisaTimeDeFora")
