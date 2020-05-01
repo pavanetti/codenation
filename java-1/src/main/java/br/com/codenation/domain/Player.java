@@ -27,4 +27,8 @@ public class Player {
   public Long getTeamId() {
     return this.teamId;
   }
+
+  public String getName() {
+    return this.name;
+  }
 }

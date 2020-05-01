@@ -28,32 +28,38 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 	@Desafio("definirCapitao")
 	public void definirCapitao(Long idJogador) {
-		throw new UnsupportedOperationException();
+		Player player = this.repository.findPlayer(idJogador);
+		Team team = this.repository.findTeam(player.getTeamId());
+		team.setCaptain(player);
+		this.repository.updateTeam(team);
 	}
 
 	@Desafio("buscarCapitaoDoTime")
 	public Long buscarCapitaoDoTime(Long idTime) {
-		throw new UnsupportedOperationException();
+		Team team = this.repository.findTeam(idTime);
+		return team.getCaptain().getId();
 	}
 
 	@Desafio("buscarNomeJogador")
 	public String buscarNomeJogador(Long idJogador) {
-		throw new UnsupportedOperationException();
+		Player player = this.repository.findPlayer(idJogador);
+		return player.getName();
 	}
 
 	@Desafio("buscarNomeTime")
 	public String buscarNomeTime(Long idTime) {
-		throw new UnsupportedOperationException();
+		Team team = this.repository.findTeam(idTime);
+		return team.getName();
 	}
 
 	@Desafio("buscarJogadoresDoTime")
 	public List<Long> buscarJogadoresDoTime(Long idTime) {
-		throw new UnsupportedOperationException();
+		return this.repository.findPlayersByTeam(idTime);
 	}
 
 	@Desafio("buscarMelhorJogadorDoTime")
 	public Long buscarMelhorJogadorDoTime(Long idTime) {
-		throw new UnsupportedOperationException();
+		return this.repository.findBestPlayer(idTime);
 	}
 
 	@Desafio("buscarJogadorMaisVelho")
