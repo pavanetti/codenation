@@ -7,6 +7,10 @@ import java.util.Optional;
 
 import br.com.codenation.desafio.annotation.Desafio;
 import br.com.codenation.desafio.app.MeuTimeInterface;
+import br.com.codenation.desafio.exceptions.CapitaoNaoInformadoException;
+import br.com.codenation.desafio.exceptions.IdentificadorUtilizadoException;
+import br.com.codenation.desafio.exceptions.JogadorNaoEncontradoException;
+import br.com.codenation.desafio.exceptions.TimeNaoEncontradoException;
 
 import br.com.codenation.domain.Player;
 import br.com.codenation.domain.PlayersCollection;
@@ -19,18 +23,29 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 	@Desafio("incluirTime")
 	public void incluirTime(Long id, String nome, LocalDate dataCriacao, String corUniformePrincipal,
 			String corUniformeSecundario) {
+		if (id == null)
+			throw new IdentificadorUtilizadoException();
+
 		this.repository.addTeam(new Team(id, nome, dataCriacao, corUniformePrincipal, corUniformeSecundario));
 	}
 
 	@Desafio("incluirJogador")
 	public void incluirJogador(Long id, Long idTime, String nome, LocalDate dataNascimento, Integer nivelHabilidade,
 			BigDecimal salario) {
+		if (this.repository.findPlayer(id) != null)
+			throw new IdentificadorUtilizadoException();
+		if (this.repository.findTeam(idTime) == null)
+			throw new TimeNaoEncontradoException();
+
 		this.repository.addPlayer(new Player(id, idTime, nome, dataNascimento, nivelHabilidade, salario));
 	}
 
 	@Desafio("definirCapitao")
 	public void definirCapitao(Long idJogador) {
 		Player player = this.repository.findPlayer(idJogador);
+		if (player == null)
+			throw new JogadorNaoEncontradoException();
+
 		Team team = this.repository.findTeam(player.getTeamId());
 		team.setCaptain(player);
 		this.repository.updateTeam(team);
@@ -39,28 +54,47 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 	@Desafio("buscarCapitaoDoTime")
 	public Long buscarCapitaoDoTime(Long idTime) {
 		Team team = this.repository.findTeam(idTime);
-		return team.getCaptain().getId();
+		if (team == null)
+			throw new TimeNaoEncontradoException();
+
+		Player captain = team.getCaptain();
+		if (captain == null)
+			throw new CapitaoNaoInformadoException();
+
+		return captain.getId();
 	}
 
 	@Desafio("buscarNomeJogador")
 	public String buscarNomeJogador(Long idJogador) {
 		Player player = this.repository.findPlayer(idJogador);
+		if (player == null)
+			throw new JogadorNaoEncontradoException();
+
 		return player.getName();
 	}
 
 	@Desafio("buscarNomeTime")
 	public String buscarNomeTime(Long idTime) {
 		Team team = this.repository.findTeam(idTime);
+		if (team == null)
+			throw new TimeNaoEncontradoException();
+
 		return team.getName();
 	}
 
 	@Desafio("buscarJogadoresDoTime")
 	public List<Long> buscarJogadoresDoTime(Long idTime) {
+		if (this.repository.findTeam(idTime) == null)
+			throw new TimeNaoEncontradoException();
+
 		return this.repository.findPlayersByTeam(idTime).getIds();
 	}
 
 	@Desafio("buscarMelhorJogadorDoTime")
 	public Long buscarMelhorJogadorDoTime(Long idTime) {
+		if (this.repository.findTeam(idTime) == null)
+			throw new TimeNaoEncontradoException();
+
 		PlayersCollection players = this.repository.findPlayersByTeam(idTime);
 		Optional<Player> theBest = players.best();
 		return theBest.map(player -> player.getId()).orElse(0L);
@@ -68,6 +102,9 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 	@Desafio("buscarJogadorMaisVelho")
 	public Long buscarJogadorMaisVelho(Long idTime) {
+		if (this.repository.findTeam(idTime) == null)
+			throw new TimeNaoEncontradoException();
+
 		PlayersCollection players = this.repository.findPlayersByTeam(idTime);
 		Optional<Player> theOldest = players.oldest();
 		return theOldest.map(player -> player.getId()).orElse(0L);
@@ -80,6 +117,9 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 	@Desafio("buscarJogadorMaiorSalario")
 	public Long buscarJogadorMaiorSalario(Long idTime) {
+		if (this.repository.findTeam(idTime) == null)
+			throw new TimeNaoEncontradoException();
+
 		PlayersCollection players = this.repository.findPlayersByTeam(idTime);
 		Optional<Player> theMoreExpensive = players.moreExpensive();
 		return theMoreExpensive.map(player -> player.getId()).orElse(0L);
@@ -87,7 +127,11 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 	@Desafio("buscarSalarioDoJogador")
 	public BigDecimal buscarSalarioDoJogador(Long idJogador) {
-		return this.repository.findPlayer(idJogador).getSalary();
+		Player player = this.repository.findPlayer(idJogador);
+		if (player == null)
+			throw new JogadorNaoEncontradoException();
+
+		return player.getSalary();
 	}
 
 	@Desafio("buscarTopJogadores")
