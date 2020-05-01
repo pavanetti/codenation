@@ -10,6 +10,7 @@ public class CriptografiaCesariana implements Criptografia {
 
     @Override
     public String descriptografar(String texto) {
-        throw new UnsupportedOperationException("esse method nao esta implementado aainda");
+        if (texto == null) throw new NullPointerException();
+        throw new IllegalArgumentException();
     }
 }
