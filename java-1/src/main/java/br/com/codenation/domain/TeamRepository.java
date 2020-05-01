@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
+import br.com.codenation.domain.PlayersCollection;
+
 public class TeamRepository {
   Map<Long, Team> teams = new HashMap<>();
   Map<Long, Player> players = new HashMap<>();
@@ -39,13 +41,8 @@ public class TeamRepository {
     return teams.get(id);
   }
 
-  public List<Long> findPlayersByTeam(Long teamId) {
-    return playersByTeam.get(teamId);
-  }
-
-  public Long findBestPlayer(Long teamId) {
-    return playersByTeam.get(teamId).stream().map(id -> players.get(id)).max(Comparator.comparing(Player::getAbility))
-        .orElse(0L);
+  public PlayersCollection findPlayersByTeam(Long teamId) {
+    return new PlayersCollection(playersByTeam.get(teamId).stream().map(id -> players.get(id)));
   }
 
   public void updateTeam(Team team) {

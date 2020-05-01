@@ -31,4 +31,8 @@ public class Player {
   public String getName() {
     return this.name;
   }
+
+  public Integer getAbility() {
+    return this.ability;
+  }
 }

@@ -3,11 +3,13 @@ package br.com.codenation;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import br.com.codenation.desafio.annotation.Desafio;
 import br.com.codenation.desafio.app.MeuTimeInterface;
 
 import br.com.codenation.domain.Player;
+import br.com.codenation.domain.PlayersCollection;
 import br.com.codenation.domain.Team;
 import br.com.codenation.domain.TeamRepository;
 
@@ -54,12 +56,14 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 	@Desafio("buscarJogadoresDoTime")
 	public List<Long> buscarJogadoresDoTime(Long idTime) {
-		return this.repository.findPlayersByTeam(idTime);
+		return this.repository.findPlayersByTeam(idTime).getIds();
 	}
 
 	@Desafio("buscarMelhorJogadorDoTime")
 	public Long buscarMelhorJogadorDoTime(Long idTime) {
-		return this.repository.findBestPlayer(idTime);
+		PlayersCollection players = this.repository.findPlayersByTeam(idTime);
+		Optional<Player> theBest = players.best();
+		return theBest.map(player -> player.getId()).orElse(0L);
 	}
 
 	@Desafio("buscarJogadorMaisVelho")
