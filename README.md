@@ -1,0 +1,1 @@
+# Projetos acelera.dev codenation
