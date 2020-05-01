@@ -4,3 +4,4 @@ build/
 .classpath
 stdout.txt
 *.vscode
+*.jar
