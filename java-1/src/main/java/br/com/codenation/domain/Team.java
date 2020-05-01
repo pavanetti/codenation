@@ -35,4 +35,12 @@ public class Team {
   public String getName() {
     return this.name;
   }
+
+  public String getMainColor() {
+    return this.mainColor;
+  }
+
+  public String getSecundaryColor() {
+    return this.secundaryColor;
+  }
 }

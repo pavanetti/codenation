@@ -99,7 +99,11 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 	@Desafio("buscarCorCamisaTimeDeFora")
 	public String buscarCorCamisaTimeDeFora(Long timeDaCasa, Long timeDeFora) {
-		throw new UnsupportedOperationException();
+		Team homeTeam = this.repository.findTeam(timeDaCasa);
+		Team guestTeam = this.repository.findTeam(timeDeFora);
+		if (guestTeam.getMainColor().equals(homeTeam.getMainColor()))
+			return guestTeam.getSecundaryColor();
+		return guestTeam.getMainColor();
 	}
 
 }
