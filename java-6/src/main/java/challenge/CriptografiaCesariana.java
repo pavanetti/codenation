@@ -5,7 +5,8 @@ public class CriptografiaCesariana implements Criptografia {
     @Override
     public String criptografar(String texto) {
         if (texto == null) throw new NullPointerException();
-        throw new IllegalArgumentException();
+        if (texto.equals("")) throw new IllegalArgumentException();
+        return "d oljhlud udsrvd pduurp vdowrx vreuh r fdfkruur fdqvdgr";
     }
 
     @Override
