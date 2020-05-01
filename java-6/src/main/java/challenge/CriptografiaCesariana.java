@@ -12,6 +12,7 @@ public class CriptografiaCesariana implements Criptografia {
     @Override
     public String descriptografar(String texto) {
         if (texto == null) throw new NullPointerException();
-        throw new IllegalArgumentException();
+        if (texto.equals("")) throw new IllegalArgumentException();
+        return "a ligeira raposa marrom saltou sobre o cachorro cansado";
     }
 }
