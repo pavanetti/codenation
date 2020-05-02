@@ -90,6 +90,8 @@ public class Motorista {
         }
 
         public MotoristaBuilder withPontos(int pontos) {
+            if (pontos < 0)
+                throw new IllegalArgumentException();
             this.pontos = pontos;
             return this;
         }
