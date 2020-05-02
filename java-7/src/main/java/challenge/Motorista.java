@@ -13,7 +13,7 @@ public class Motorista {
     private final String habilitacao;
 
     private Motorista(String nome, int idade, int pontos, String habilitacao) {
-        if (habilitacao == null)
+        if (nome == null || habilitacao == null)
             throw new NullPointerException();
         this.nome = nome;
         this.idade = idade;
