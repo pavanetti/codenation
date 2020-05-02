@@ -12,6 +12,6 @@ public class TeamsCollection {
   }
 
   public List<Long> getIds() {
-    return this.teams.stream().map(Team::getId).collect(Collectors.toList());
+    return this.teams.stream().map(Team::getId).sorted().collect(Collectors.toList());
   }
 }

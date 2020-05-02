@@ -14,7 +14,7 @@ public class PlayersCollection {
   }
 
   public List<Long> getIds() {
-    return players.stream().map(Player::getId).collect(Collectors.toList());
+    return players.stream().map(Player::getId).sorted().collect(Collectors.toList());
   }
 
   public Optional<Player> best() {
@@ -22,17 +22,17 @@ public class PlayersCollection {
   }
 
   public Optional<Player> oldest() {
-    return players.stream().max(Comparator.comparing(Player::getBirthday));
+    Comparator<Player> comparePlayers = Comparator.comparing(Player::getBirthday).thenComparing(Player::getId);
+    return players.stream().sorted(comparePlayers).findFirst();
   }
 
   public Optional<Player> moreExpensive() {
-    return players.stream().max(Comparator.comparing(Player::getSalary));
+    Comparator<Player> comparePlayers = Comparator.comparing(Player::getSalary).reversed().thenComparing(Player::getId);
+    return players.stream().sorted(comparePlayers).findFirst();
   }
 
   public PlayersCollection top(Integer count) {
-    Comparator<Player> comparePlayers = (p1, p2) -> p1.getAbility().equals(p2.getAbility())
-        ? p1.getId().compareTo(p2.getId())
-        : p1.getAbility().compareTo(p2.getAbility());
+    Comparator<Player> comparePlayers = Comparator.comparing(Player::getAbility).reversed().thenComparing(Player::getId);
     Stream<Player> theTop = players.stream().sorted(comparePlayers).limit(count);
     return new PlayersCollection(theTop);
   }

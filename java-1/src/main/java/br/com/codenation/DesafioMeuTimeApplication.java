@@ -145,6 +145,9 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 	public String buscarCorCamisaTimeDeFora(Long timeDaCasa, Long timeDeFora) {
 		Team homeTeam = this.repository.findTeam(timeDaCasa);
 		Team guestTeam = this.repository.findTeam(timeDeFora);
+		if (homeTeam == null || guestTeam == null)
+			throw new TimeNaoEncontradoException();
+
 		if (guestTeam.getMainColor().equals(homeTeam.getMainColor()))
 			return guestTeam.getSecundaryColor();
 		return guestTeam.getMainColor();
