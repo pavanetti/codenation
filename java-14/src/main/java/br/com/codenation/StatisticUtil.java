@@ -1,9 +1,12 @@
 package br.com.codenation;
 
-public class StatisticUtil {
+import java.util.Arrays;
+import java.util.stream.DoubleStream;
 
+public class StatisticUtil {
 	public static int average(int[] elements) {
-		return 3;
+		DoubleStream stream = Arrays.stream(elements).mapToDouble(Double::valueOf);
+		return (int) stream.average().orElse(Double.NaN);
 	}
 
 	public static int mode(int[] elements) {
