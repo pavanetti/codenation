@@ -9,13 +9,7 @@ public class Estacionamento {
 
     public void estacionar(Carro carro) {
         validarMotorista(carro.getMotorista());
-        if (estacionados.size() == 10) {
-            if (estacionados.get(0).getMotorista().getIdade() > 55) {
-                estacionados.remove(1);
-            } else {
-                estacionados.remove(0);
-            }
-        }
+        validarLotacao(carro.getMotorista());
         estacionados.add(carro);
     }
 
@@ -34,5 +28,20 @@ public class Estacionamento {
             throw new EstacionamentoException("Não pode ter motorista menor de idade");
         if (motorista.getPontos() > 20)
             throw new EstacionamentoException("Não pode ter motorista com habilitação suspensa");
+    }
+
+    private void validarLotacao(Motorista motorista) {
+        if (estacionados.size() == 10) {
+            Iterator<Carro> iterador = this.estacionados.iterator();
+            while (iterador.hasNext()) {
+                Carro estacionado = iterador.next();
+                if (estacionado.getMotorista().getIdade() <= 55) {
+                    iterador.remove();
+                    break;
+                }
+            }
+        }
+        if (estacionados.size() == 10)
+            throw new EstacionamentoException("Não há vagas");
     }
 }
