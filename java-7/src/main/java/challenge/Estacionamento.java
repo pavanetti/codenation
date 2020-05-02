@@ -2,10 +2,8 @@ package challenge;
 
 public class Estacionamento {
 
-
-
     public void estacionar(Carro carro) {
-      
+
     }
 
     public int carrosEstacionados() {

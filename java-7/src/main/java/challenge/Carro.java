@@ -1,5 +1,7 @@
 package challenge;
 
+import java.util.Objects;
+
 public class Carro {
 
     private final Motorista motorista;
@@ -35,9 +37,7 @@ public class Carro {
             return false;
         }
         Carro carro = (Carro) o;
-        return Objects.equals(motorista, carro.motorista) &&
-                Objects.equals(placa, carro.placa) &&
-                cor == carro.cor;
+        return Objects.equals(motorista, carro.motorista) && Objects.equals(placa, carro.placa) && cor == carro.cor;
     }
 
     @Override
@@ -47,17 +47,12 @@ public class Carro {
 
     @Override
     public String toString() {
-        return "Carro{" +
-                "motorista=" + motorista +
-                ", placa='" + placa + '\'' +
-                ", cor=" + cor +
-                '}';
+        return "Carro{" + "motorista=" + motorista + ", placa='" + placa + '\'' + ", cor=" + cor + '}';
     }
 
     public static CarroBuilder builder() {
         return new CarroBuilder();
     }
-
 
     public static class CarroBuilder {
 

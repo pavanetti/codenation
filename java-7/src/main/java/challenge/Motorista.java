@@ -1,5 +1,6 @@
 package challenge;
 
+import java.util.Objects;
 
 public class Motorista {
 
@@ -34,7 +35,6 @@ public class Motorista {
         return habilitacao;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -54,18 +54,13 @@ public class Motorista {
 
     @Override
     public String toString() {
-        return "Motorista{" +
-                "nome='" + nome + '\'' +
-                ", idade=" + idade +
-                ", pontos=" + pontos +
-                ", habilitacao='" + habilitacao + '\'' +
-                '}';
+        return "Motorista{" + "nome='" + nome + '\'' + ", idade=" + idade + ", pontos=" + pontos + ", habilitacao='"
+                + habilitacao + '\'' + '}';
     }
 
     public static MotoristaBuilder builder() {
         return new MotoristaBuilder();
     }
-
 
     public static class MotoristaBuilder {
 
@@ -99,7 +94,6 @@ public class Motorista {
             this.habilitacao = habilitacao;
             return this;
         }
-
 
         public Motorista build() {
             return new Motorista(nome, idade, pontos, habilitacao);
