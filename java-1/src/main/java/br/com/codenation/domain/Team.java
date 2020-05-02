@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import br.com.codenation.domain.Player;
 
 public class Team {
-  private Long id;
-  private String name;
-  private LocalDate createdAt;
-  private String mainColor;
-  private String secundaryColor;
+  private final Long id;
+  private final String name;
+  private final LocalDate createdAt;
+  private final String mainColor;
+  private final String secundaryColor;
   private Player captain;
 
   public Team(Long id, String name, LocalDate createdAt, String mainColor, String secundaryColor) {
@@ -43,4 +43,6 @@ public class Team {
   public String getSecundaryColor() {
     return this.secundaryColor;
   }
+
+  public LocalDate getCreatedAt() { return this.createdAt; }
 }

@@ -1,26 +1,19 @@
 package br.com.codenation.domain;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 
 import br.com.codenation.domain.PlayersCollection;
 
 public class TeamRepository {
-  Map<Long, Team> teams = new HashMap<>();
-  Map<Long, Player> players = new HashMap<>();
-  Map<Long, List<Long>> playersByTeam = new HashMap<>();
-  Map<Long, Long> captainsByTeam = new HashMap<>();
+  private final Map<Long, Team> teams = new HashMap<>();
+  private final Map<Long, Player> players = new HashMap<>();
+  private final Map<Long, List<Long>> playersByTeam = new HashMap<>();
 
   public void addTeam(Team team) {
     teams.put(team.getId(), team);
-    Player captain = team.getCaptain();
-    if (captain != null)
-      captainsByTeam.put(team.getId(), captain.getId());
   }
 
   public void addPlayer(Player player) {
@@ -50,7 +43,7 @@ public class TeamRepository {
   }
 
   public PlayersCollection findPlayersByTeam(Long teamId) {
-    return new PlayersCollection(playersByTeam.get(teamId).stream().map(id -> players.get(id)));
+    return new PlayersCollection(playersByTeam.get(teamId).stream().map(players::get));
   }
 
   public void updateTeam(Team team) {

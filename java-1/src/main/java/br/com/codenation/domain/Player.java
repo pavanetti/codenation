@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Player {
-  private Long id;
-  private Long teamId;
-  private String name;
-  private LocalDate birthday;
-  private Integer ability;
-  private BigDecimal salary;
+  private final Long id;
+  private final Long teamId;
+  private final String name;
+  private final LocalDate birthday;
+  private final Integer ability;
+  private final BigDecimal salary;
 
   public Player(Long id, Long teamId, String name, LocalDate birthday, Integer ability, BigDecimal salary) {
     this.id = id;

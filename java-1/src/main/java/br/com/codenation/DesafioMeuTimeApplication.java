@@ -18,12 +18,12 @@ import br.com.codenation.domain.Team;
 import br.com.codenation.domain.TeamRepository;
 
 public class DesafioMeuTimeApplication implements MeuTimeInterface {
-	private TeamRepository repository = new TeamRepository();
+	private final TeamRepository repository = new TeamRepository();
 
 	@Desafio("incluirTime")
 	public void incluirTime(Long id, String nome, LocalDate dataCriacao, String corUniformePrincipal,
 			String corUniformeSecundario) {
-		if (id == null)
+		if (this.repository.findTeam(id) != null)
 			throw new IdentificadorUtilizadoException();
 
 		this.repository.addTeam(new Team(id, nome, dataCriacao, corUniformePrincipal, corUniformeSecundario));
@@ -97,7 +97,7 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 		PlayersCollection players = this.repository.findPlayersByTeam(idTime);
 		Optional<Player> theBest = players.best();
-		return theBest.map(player -> player.getId()).orElse(0L);
+		return theBest.map(Player::getId).orElse(0L);
 	}
 
 	@Desafio("buscarJogadorMaisVelho")
@@ -107,7 +107,7 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 		PlayersCollection players = this.repository.findPlayersByTeam(idTime);
 		Optional<Player> theOldest = players.oldest();
-		return theOldest.map(player -> player.getId()).orElse(0L);
+		return theOldest.map(Player::getId).orElse(0L);
 	}
 
 	@Desafio("buscarTimes")
@@ -122,7 +122,7 @@ public class DesafioMeuTimeApplication implements MeuTimeInterface {
 
 		PlayersCollection players = this.repository.findPlayersByTeam(idTime);
 		Optional<Player> theMoreExpensive = players.moreExpensive();
-		return theMoreExpensive.map(player -> player.getId()).orElse(0L);
+		return theMoreExpensive.map(Player::getId).orElse(0L);
 	}
 
 	@Desafio("buscarSalarioDoJogador")
