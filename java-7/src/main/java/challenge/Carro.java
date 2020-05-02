@@ -11,6 +11,8 @@ public class Carro {
     private final Cor cor;
 
     private Carro(Motorista motorista, String placa, Cor cor) {
+        if (placa == null)
+            throw new NullPointerException();
         this.motorista = motorista;
         this.placa = placa;
         this.cor = cor;
