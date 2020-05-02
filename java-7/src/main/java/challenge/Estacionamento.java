@@ -1,17 +1,21 @@
 package challenge;
 
+import java.util.ArrayList;
+
 public class Estacionamento {
+    private int estacionados = 0;
 
     public void estacionar(Carro carro) {
         validarMotorista(carro.getMotorista());
+        estacionados++;
     }
 
     public int carrosEstacionados() {
-        return 1;
+        return Math.min(estacionados, 10);
     }
 
     public boolean carroEstacionado(Carro carro) {
-        return true;
+        return false;
     }
 
     private void validarMotorista(Motorista motorista) {
