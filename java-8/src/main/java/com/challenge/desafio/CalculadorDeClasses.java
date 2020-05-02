@@ -7,6 +7,8 @@ import com.challenge.interfaces.Calculavel;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 // Porque não poderia ter nada menos orientado a objetos
 public class CalculadorDeClasses implements Calculavel {
@@ -25,23 +27,16 @@ public class CalculadorDeClasses implements Calculavel {
         return somar(obj).subtract(subtrair(obj));
     }
 
-    private BigDecimal somarPorAnotacao(Object obj, Class<? extends Annotation> anotacao) {
-        BigDecimal result = BigDecimal.ZERO;
-        Field[] fields = obj.getClass().getDeclaredFields();
-
-        try {
-            for (Field field : fields) {
-                if (field.getAnnotation(anotacao) != null) {
-                    if (field.getType().equals(BigDecimal.class)) {
-                        field.setAccessible(true);
-                        result = result.add((BigDecimal) field.get(obj));
-                    }
-                }
+    private BigDecimal somarPorAnotacao(Object obj, Class<? extends  Annotation> anotacao) {
+        Stream<Field> fields = Arrays.stream(obj.getClass().getDeclaredFields());
+        Stream<Field> valids = fields.filter(f -> f.isAnnotationPresent(anotacao) && f.getType().equals(BigDecimal.class));
+        return valids.map(f -> {
+            try {
+                return (BigDecimal) f.get(obj);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        return result;
+            return BigDecimal.ZERO;
+        }).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
