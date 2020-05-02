@@ -83,6 +83,8 @@ public class Motorista {
         }
 
         public MotoristaBuilder withIdade(int idade) {
+            if (idade < 0)
+                throw new IllegalArgumentException();
             this.idade = idade;
             return this;
         }
