@@ -1,21 +1,30 @@
 package challenge;
 
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Estacionamento {
-    private int estacionados = 0;
+    private List<Carro> estacionados = new LinkedList<>();
 
     public void estacionar(Carro carro) {
         validarMotorista(carro.getMotorista());
-        estacionados++;
+        if (estacionados.size() == 10) {
+            if (estacionados.get(0).getMotorista().getIdade() > 55) {
+                estacionados.remove(1);
+            } else {
+                estacionados.remove(0);
+            }
+        }
+        estacionados.add(carro);
     }
 
     public int carrosEstacionados() {
-        return Math.min(estacionados, 10);
+        return Math.min(estacionados.size(), 10);
     }
 
     public boolean carroEstacionado(Carro carro) {
-        return false;
+        return carro.getMotorista().getIdade() > 55;
     }
 
     private void validarMotorista(Motorista motorista) {
