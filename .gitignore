@@ -5,3 +5,5 @@ build/
 stdout.txt
 *.vscode
 *.jar
+.idea/
+.DS_Store
