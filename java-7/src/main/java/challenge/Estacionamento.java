@@ -7,7 +7,7 @@ public class Estacionamento {
     }
 
     public int carrosEstacionados() {
-        return 0;
+        return 1;
     }
 
     public boolean carroEstacionado(Carro carro) {
