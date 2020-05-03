@@ -32,6 +32,7 @@ public class CalculadorDeClasses implements Calculavel {
         Stream<Field> valids = fields.filter(f -> f.isAnnotationPresent(anotacao) && f.getType().equals(BigDecimal.class));
         return valids.map(f -> {
             try {
+                f.setAccessible(true);
                 return (BigDecimal) f.get(obj);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
