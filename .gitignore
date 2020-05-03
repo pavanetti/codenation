@@ -1,3 +1,4 @@
+# Java
 bin/
 build/
 .gradle/
@@ -7,3 +8,6 @@ stdout.txt
 *.jar
 .idea/
 .DS_Store
+
+# Data science
+venv/
