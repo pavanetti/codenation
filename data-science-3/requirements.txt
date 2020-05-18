@@ -1,0 +1,5 @@
+jupyter==1.0.0
+loguru==0.5.0
+pandas==1.0.3
+pytest==5.4.2
+sklearn==0.0
