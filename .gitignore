@@ -11,3 +11,7 @@ stdout.txt
 
 # Data science
 venv/
+output.xml
+.pytest_cache/
+.ipynb_checkpoints
+__pycache__
