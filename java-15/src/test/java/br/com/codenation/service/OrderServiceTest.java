@@ -26,7 +26,7 @@ public class OrderServiceTest {
 
 	@Test
 	public void testFindProductsById() {
-		assertNotNull(this.orderService.findProductsById(Arrays.asList(1l, 2l, 3l, 4l, 5l)).size());
+		assertNotNull(this.orderService.findProductsById(Arrays.asList(1l, 2l, 3l, 4l, 5l)));
 	}
 
 	@Test
