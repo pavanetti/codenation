@@ -46,10 +46,7 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public Map<Boolean, List<Product>> groupProductsBySale(List<Long> productIds) {
-		HashMap<Boolean, List<Product>> map = new HashMap<>();
-		map.put(true, new ArrayList<>());
-		map.put(false, new ArrayList<>());
-		return map;
+		return this.findProductsById(productIds).stream()
+				.collect(Collectors.groupingBy(Product::getIsSale));
 	}
-
 }
