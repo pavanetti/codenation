@@ -1,6 +1,7 @@
 package br.com.codenation.model;
 
 public class Product {
+	private static final double DISCOUNT = 0.2;
 
 	private Long id;
 
@@ -32,6 +33,10 @@ public class Product {
 
 	public Boolean getIsSale() {
 		return isSale;
+	}
+
+	public Double saleValue() {
+		return this.isSale ? this.value * (1 - DISCOUNT) : this.value;
 	}
 
 }

@@ -16,7 +16,8 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public Double calculateOrderValue(List<OrderItem> items) {
-		return 0.0;
+		// Sinceramente, calcular o total de um OrderItem é responsabilidade dele
+		return items.stream().mapToDouble(OrderItem::total).sum();
 	}
 
 	/**
@@ -24,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public Set<Product> findProductsById(List<Long> ids) {
-		return new HashSet<Product>();
+		return new HashSet<>();
 	}
 
 	/**
