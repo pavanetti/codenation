@@ -18,6 +18,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Double calculateOrderValue(List<OrderItem> items) {
 		// Sinceramente, calcular o total de um OrderItem é responsabilidade dele
+		// https://github.com/carlospavanetti/codenation/blob/65c4de83c3abc183a9b47d65c8c938ff686fd33f/java-15/src/main/java/br/com/codenation/model/OrderItem.java#L30
 		return items.stream().mapToDouble(OrderItem::total).sum();
 	}
 
