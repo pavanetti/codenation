@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public Double calculateMultipleOrders(List<List<OrderItem>> orders) {
-		return 0.0;
+		return orders.stream().mapToDouble(this::calculateOrderValue).sum();
 	}
 
 	/**
