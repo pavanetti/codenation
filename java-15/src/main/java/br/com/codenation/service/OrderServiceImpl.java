@@ -1,6 +1,7 @@
 package br.com.codenation.service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import br.com.codenation.model.OrderItem;
 import br.com.codenation.model.Product;
@@ -25,7 +26,11 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public Set<Product> findProductsById(List<Long> ids) {
-		return new HashSet<>();
+		return ids.stream()
+				.map(productRepository::findById)
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.collect(Collectors.toSet());
 	}
 
 	/**
